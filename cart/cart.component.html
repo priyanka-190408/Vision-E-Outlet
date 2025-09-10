@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cart</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+<!-- cart section starts  -->
+
+<!-- src/app/cart/cart.component.html -->
+<section class="shopping-cart">
+  <h1 class="title">Your Products</h1>
+
+  <div class="box-container" *ngIf="cartItems.length > 0; else emptyCart">
+    <div class="box" *ngFor="let item of cartItems; let i = index">
+      <i class="fas fa-times" (click)="removeFromCart(i)"></i>
+      <img [src]="item.imageUrl" alt="{{item.name}}" class="cart-item-image">
+      <div class="content">
+        <h3>{{item.name}}</h3>
+        <form>
+          <span>quantity :</span>
+          <input type="number" [value]="item.quantity || 1" readonly>
+        </form>
+        <div class="price"> ${{item.price}} <span>${{item.originalPrice || item.price}}</span> </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyCart>
+    <p>Your cart is empty.</p>
+    <a [routerLink]="['/products']">Continue Shopping</a>
+  </ng-template>
+
+  <h1 class="title">Checkout Cart</h1>
+  <div class="cart-total" *ngIf="cartItems.length > 0">
+    <h3>Subtotal: <span>${{total}}</span></h3>
+    <h3>Total: <span>${{total}}</span></h3>
+    <button class="btn" (click)="proceedToCheckout()">Proceed to Checkout</button>
+  </div>
+</section>
+<!-- cart section end -->
+
+</body>
+</html>

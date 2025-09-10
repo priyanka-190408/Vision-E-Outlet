@@ -1,0 +1,55 @@
+<section class="payment">
+ 
+  <h2>Payment Summary</h2>
+  <div class="summary-container">
+    <div class="item-section">
+      <div class="item" *ngFor="let item of cartItems">
+        <img [src]="item.imageUrl" alt="{{item.name}}" class="item-image">
+        <div class="item-details">
+          <h3>{{item.name}}</h3>
+          <p>Price: ${{item.price}}</p>
+          <p>Size: {{item.size}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="payment-options">
+    <h3>Select Payment Method</h3>
+    <div>
+      <input type="radio" id="netbanking" name="paymentMethod" value="netbanking" [(ngModel)]="selectedPaymentMethod" (change)="onPaymentMethodChange()">
+      <label for="netbanking">Net Banking / UPI</label>
+    </div>
+    <div>
+      <input type="radio" id="card" name="paymentMethod" value="card" [(ngModel)]="selectedPaymentMethod" (change)="onPaymentMethodChange()">
+      <label for="card">Credit/Debit Card</label>
+    </div>
+    <div>
+      <input type="radio" id="cod" name="paymentMethod" value="cod" [(ngModel)]="selectedPaymentMethod" (change)="onPaymentMethodChange()">
+      <label for="cod">Payment On Delivery</label>
+    </div>
+  </div>
+
+  <div class="payment-details" *ngIf="selectedPaymentMethod === 'netbanking'">
+    <h3>UPI Payment Details</h3>
+    <div class="upi-inputs">
+      <input type="text" placeholder="UPI ID (e.g., name@upi)" [(ngModel)]="upiId" (input)="validateUpiId()">
+      <p>Amount: ${{totalAmount}}</p>
+    </div>
+  </div>
+
+  <div class="payment-details" *ngIf="selectedPaymentMethod === 'card'">
+    <h3>Card Payment Details</h3>
+    <div class="card-inputs">
+      <input type="text" placeholder="Card Number (16 Digits)" [(ngModel)]="cardNumber" maxlength="16" (input)="validateCardNumber()">
+      <input type="text" placeholder="CVV (3 Digits)" [(ngModel)]="cvv" maxlength="3" (input)="validateCvv()">
+      <input type="text" placeholder="Expiry Date (MM/YY)" [(ngModel)]="expiryDate" maxlength="5" (input)="validateExpiryDate()">
+    </div>
+  </div>
+
+  <div class="total-section">
+    <h2>Total Amount: ${{totalAmount}}</h2>
+  </div>
+
+  <button class="confirm-payment" (click)="confirmPayment()" [disabled]="!isPaymentValid()">Confirm Payment</button>
+</section>

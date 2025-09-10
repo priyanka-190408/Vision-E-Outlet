@@ -1,0 +1,106 @@
+.products {
+  padding: 20px;
+}
+
+.category-section {
+  margin-bottom: 40px;
+}
+
+.category-section h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+}
+
+.box-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.box {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s;
+  background-color: #fff;
+}
+
+.box:hover {
+  transform: scale(1.05);
+}
+
+.image {
+  position: relative;
+}
+
+.image img {
+  width: 100%;
+  height: auto;
+}
+
+.icons {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust for the element's own size */
+  display: flex;
+  gap: 10px;
+  justify-content: center; /* Center icons horizontally within the flex container */
+  align-items: center; /* Center icons vertically within the flex container */
+}
+
+.icons span {
+  color: #333;
+  font-size: 24px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.icons span:hover {
+  color: #ff69b4;
+}
+
+.content {
+  padding: 15px;
+}
+
+.content h3 {
+  font-size: 18px;
+  color: #333;
+}
+
+.stars {
+  color: #ff69b4;
+  margin: 5px 0;
+}
+
+.price {
+  font-size: 16px;
+  color: #ff69b4;
+}
+
+.price span {
+  text-decoration: line-through;
+  color: #999;
+  margin-left: 5px;
+}
+
+.success-message {
+  color: green;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 16px;
+}

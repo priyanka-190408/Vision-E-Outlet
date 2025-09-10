@@ -1,0 +1,40 @@
+.contact .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.contact .row form {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 42rem;
+          flex: 1 1 42rem;
+  padding: 2rem;
+  border-radius: .5rem;
+  border: 0.2rem solid #333;
+}
+
+.contact .row form .box, .contact .row form textarea {
+  width: 100%;
+  border-bottom: 0.2rem solid #333;
+  margin-bottom: 1rem;
+  padding: 1rem 0;
+  font-size: 1.6rem;
+  color: #666;
+  text-transform: none;
+}
+
+.contact .row form textarea {
+  height: 15rem;
+  resize: none;
+}
+
+.contact .row .map {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 42rem;
+          flex: 1 1 42rem;
+  border-radius: .5rem;
+  width: 100%;
+}

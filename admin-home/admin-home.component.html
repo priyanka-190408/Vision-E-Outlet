@@ -1,0 +1,173 @@
+<div class="admin-portal">
+  <header class="admin-header">
+    <h1 class="admin-title">ADMIN PORTAL</h1>
+    <nav class="admin-nav">
+      <a (click)="setActiveSection('dashboard')" [class.active]="activeSection === 'dashboard'">Dashboard</a>
+      <a (click)="setActiveSection('products')" [class.active]="activeSection === 'products'">Products</a>
+      <a (click)="setActiveSection('blogs')" [class.active]="activeSection === 'blogs'">Blogs</a>
+      <a (click)="setActiveSection('users')" [class.active]="activeSection === 'users'">Users</a>
+    </nav>
+  </header>
+
+  <main class="admin-content">
+    <!-- Dashboard Section -->
+    <section class="management-section" *ngIf="activeSection === 'dashboard'">
+      <h2 class="section-title">Dashboard</h2>
+      <p class="section-subtitle">Overview of your admin portal.</p>
+      <div class="dashboard-stats">
+        <p class="stat-item">Total Products: {{ products.length }}</p>
+        <p class="stat-item">Total Blogs: {{ blogs.length }}</p>
+        <p class="stat-item">Total Users: {{ users.length }}</p>
+      </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="management-section" *ngIf="activeSection === 'products'">
+      <h2 class="section-title">Product Management</h2>
+      <p class="section-subtitle">Efficiently Manage Your Product Catalog with Ease.</p>
+
+      <div class="crud-buttons">
+        <button class="btn btn-primary" (click)="showProductForm = !showProductForm" *ngIf="!showProductForm && !showDeleteProductForm">Add</button>
+        <button class="btn btn-danger" (click)="showDeleteProductForm = !showDeleteProductForm" *ngIf="!showProductForm && !showDeleteProductForm">Delete</button>
+      </div>
+
+      <!-- Product Form (Add/Edit) using ProductInsertComponent -->
+      <div class="form-container card" *ngIf="showProductForm">
+        <app-product-insert
+          [product]="editingProduct || newProduct"
+          (productAdded)="addProduct()"
+          (productUpdated)="updateProduct()"
+          (cancel)="cancelEdit()"
+        ></app-product-insert>
+      </div>
+
+      <!-- Delete Product Form -->
+      <div class="form-container card" *ngIf="showDeleteProductForm">
+        <h3 class="form-title">Delete Product</h3>
+        <form class="delete-form" (ngSubmit)="deleteProduct()">
+          <label class="form-label">
+            Product ID:
+            <input type="text" class="form-input" [(ngModel)]="deleteProductId" name="deleteProductId" required>
+          </label>
+          <button type="submit" class="btn btn-danger">Delete Product</button>
+          <button type="button" class="btn btn-secondary" (click)="showDeleteProductForm = false">Cancel</button>
+        </form>
+      </div>
+
+      <!-- Product Catalog -->
+      <div class="display-container card" *ngIf="products.length > 0 && !showProductForm && !showDeleteProductForm">
+        <h3 class="table-title">Product Catalog</h3>
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Image</th>
+              <th>Price</th>
+              <th>Original Price</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of products">
+              <td>{{ product._id }}</td>
+              <td>{{ product.name }}</td>
+              <td><img [src]="product.imageUrl" alt="Product Image" width="50" class="product-image"></td>
+              <td>{{ product.price | currency }}</td>
+              <td>{{ product.originalPrice | currency }}</td>
+              <td>{{ product.description }}</td>
+              <td>{{ product.category }}</td>
+              <td>
+                <button class="btn btn-secondary" (click)="startEdit(product)">Edit</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Blogs Section -->
+    <section class="management-section" *ngIf="activeSection === 'blogs'">
+      <h2 class="section-title">Blog Management</h2>
+      <p class="section-subtitle">Efficiently Manage Your Blog Posts with Ease.</p>
+
+      <div class="crud-buttons">
+        <button class="btn btn-primary" (click)="showBlogFormToggle()" *ngIf="!showBlogForm && !showDeleteBlogForm">Add</button>
+        <button class="btn btn-danger" (click)="showDeleteBlogForm = !showDeleteBlogForm" *ngIf="!showBlogForm && !showDeleteBlogForm">Delete</button>
+      </div>
+
+      <div class="form-container card" *ngIf="showBlogForm">
+        <h3 class="form-title">{{ editingBlog ? 'Update Blog' : 'Add New Blog' }}</h3>
+        <form class="blog-form" (ngSubmit)="editingBlog ? updateBlog() : addBlog()">
+          <label class="form-label">
+            Title:
+            <input type="text" class="form-input" [(ngModel)]="blogTitle" name="title" required>
+          </label>
+          <label class="form-label">
+            Author:
+            <input type="text" class="form-input" [(ngModel)]="blogAuthor" name="author" required>
+          </label>
+          <label class="form-label">
+            Image URL:
+            <input type="text" class="form-input" [(ngModel)]="blogImageUrl" name="imageUrl" required>
+          </label>
+          <label class="form-label">
+            Content:
+            <textarea class="form-textarea" [(ngModel)]="blogContent" name="content" required></textarea>
+          </label>
+          <button type="submit" class="btn btn-primary">{{ editingBlog ? 'Update Blog' : 'Add Blog' }}</button>
+          <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+        </form>
+      </div>
+
+      <div class="form-container card" *ngIf="showDeleteBlogForm">
+        <h3 class="form-title">Delete Blog</h3>
+        <form class="delete-form" (ngSubmit)="deleteBlog()">
+          <label class="form-label">
+            Blog ID:
+            <input type="text" class="form-input" [(ngModel)]="deleteBlogId" name="deleteBlogId" required>
+          </label>
+          <button type="submit" class="btn btn-danger">Delete Blog</button>
+          <button type="button" class="btn btn-secondary" (click)="showDeleteBlogForm = false">Cancel</button>
+        </form>
+      </div>
+
+      <div class="display-container card" *ngIf="blogs.length > 0 && !showBlogForm && !showDeleteBlogForm">
+        <h3 class="table-title">Blog Posts</h3>
+        <table class="blog-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Image</th>
+              <th>Content</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let blog of blogs">
+              <td>{{ blog._id }}</td>
+              <td>{{ blog.title }}</td>
+              <td>{{ blog.author }}</td>
+              <td><img [src]="blog.imageUrl" alt="Blog Image" width="50" class="blog-image"></td>
+              <td>{{ blog.content }}</td>
+              <td>
+                <button class="btn btn-secondary" (click)="startEditBlog(blog)">Edit</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Users Section -->
+    <section class="management-section" *ngIf="activeSection === 'users'">
+      <h2 class="section-title">User Management</h2>
+      <p class="section-subtitle">View all registered users.</p>
+      <app-user-list [users]="users"></app-user-list>
+    </section>
+  </main>
+</div>

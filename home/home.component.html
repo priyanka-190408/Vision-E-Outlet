@@ -1,0 +1,54 @@
+<section class="home">
+  <div class="slide" *ngFor="let i of [0, 1, 2]; let idx = index" 
+       [ngClass]="{'active': currentSlide === idx}" 
+       [style.backgroundImage]="'url(/' + ('home-bg-' + (idx + 1) + '.png') + ')'">
+    <div class="content">
+      <span>protect your eyes</span>
+      <h3>upto 50% off</h3>
+      <a [routerLink]="['/products']" class="btn">shop now</a>
+    </div>
+  </div>
+  <div id="next-slide" (click)="next()" class="fas fa-angle-right"></div>
+  <div id="prev-slide" (click)="prev()" class="fas fa-angle-left"></div>
+</section>
+
+<section class="banner">
+  <div class="box" *ngFor="let i of [0, 1, 2]">
+    <img [src]="'/banner-' + (i + 1) + '.jpg'" alt="">
+    <div class="content">
+      <span>special offer</span>
+      <h3>upto 50% off</h3>
+      <a [routerLink]="['/products']" class="btn">shop now</a>
+    </div>
+  </div>
+</section>
+
+<!-- Updated Section for Descriptions with Alternating Layout -->
+<section class="descriptions">
+  <!-- Specs: Image on Left, Text on Right -->
+  <div class="description-box left-image">
+    <img src="specs.jpeg" alt="Eyewear Specs" class="description-image">
+    <div class="description-text">
+      <strong>WHERE PRECISION MEETS PERFORMANCE</strong><br>
+      In a world driven by innovation, every detail matters. Our specifications are crafted with precision to ensure unmatched performance across every product and service. From the smallest components to the biggest breakthroughs, we focus on the fine details that power exceptional results. Explore specs that aren’t just numbers — they’re the foundation of excellence.
+    </div>
+  </div>
+
+  <!-- Lens: Text on Left, Image on Right -->
+  <div class="description-box right-image">
+    <div class="description-text">
+      <strong>DESIGNED FOR COMFORT, ENGINEERED FOR CLARITY</strong><br>
+      Your eyes deserve nothing but the best. Our contact lenses are carefully designed to provide unmatched comfort throughout the day, while delivering crisp, clear vision you can rely on. With advanced materials and precision engineering, every lens is a perfect blend of softness, durability, and clarity — so you can see the world beautifully, without compromise.
+    </div>
+    <img src="lens.webp" alt="Lens Types" class="description-image">
+  </div>
+
+  <!-- Lens Solutions: Image on Left, Text on Right -->
+  <div class="description-box left-image">
+    <img src="lens-solutions.webp" alt="Lens Solutions" class="description-image">
+    <div class="description-text">
+      <strong>REFRESHING CARE FOR LASTING COMFORT</strong><br>
+      Give your lenses the care they deserve with a solution designed to refresh and protect. Our contact lens solution gently cleans, hydrates, and preserves your lenses, ensuring they stay fresh and comfortable from morning to night. With every rinse, you’re not just cleaning — you’re caring for your vision and comfort, every single day.
+    </div>
+  </div>
+</section>

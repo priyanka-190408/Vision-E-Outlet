@@ -1,0 +1,33 @@
+<section class="product-detail">
+  <div class="container">
+    <div class="image-360">
+      <img [src]="product?.imageUrl" alt="{{product?.name}}" class="rotate-360" *ngIf="product?.imageUrl">
+    </div>
+    <div class="content">
+      <h1>{{product?.name || 'Loading...'}}</h1>
+      <div *ngIf="error" class="error">{{error}}</div>
+      <div class="price">
+        ${{product?.price || 'N/A'}}
+        <span *ngIf="product && product.originalPrice">(${{product.originalPrice}})</span>
+      </div>
+      <div class="size">Size: {{product?.size || 'N/A'}}</div>
+      <button class="buy-now" (click)="addToCartAndCalculate()" [disabled]="!product">Buy Now</button>
+      <div class="technical-info" *ngIf="product">
+        <h3>Technical Information</h3>
+        <div class="info-grid">
+          <p><strong>Product ID:</strong> {{product._id || 'N/A'}}</p>
+          <p><strong>Model:</strong> {{product.model || 'N/A'}}</p>
+          <p *ngIf="shouldShowFrameFields()"><strong>Frame Width:</strong> {{product.frameWidth || 'N/A'}}</p>
+          <p *ngIf="shouldShowFrameFields()"><strong>Frame Dimensions:</strong> {{product.frameDimensions || 'N/A'}}</p>
+          <p *ngIf="shouldShowFrameFields()"><strong>Frame Color:</strong> {{product.frameColor || 'N/A'}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer class="cart-footer" *ngIf="cartItems.length > 0">
+  <div class="total">
+    <span>Total Amount: ${{totalAmount}}</span>
+  </div>
+  <button class="pay-now" [routerLink]="['/payment']">Pay Now</button>
+</footer>

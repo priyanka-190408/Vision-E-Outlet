@@ -1,0 +1,85 @@
+<div id="consent" class="container" *ngIf="currentStep === 'consent'">
+  <h1>PLEASE READ AND ACCEPT</h1>
+  <p>This Online Vision Screening provides a first impression of your vision. It's not a medical test and no substitute for professional eye care. It’s not for diagnosing or treating diseases, just a general guide on your visual acuity. Consult an eye doctor every two years or sooner if vision changes occur. Carl Zeiss Vision Inc. and affiliates accept no liability for damages from this screening.</p>
+  <button (click)="showInstructions()">I AGREE</button>
+</div>
+
+<div id="instructions" class="container" *ngIf="currentStep === 'instructions'">
+  <h1>INSTRUCTIONS</h1>
+  <p>Turn your screen brightness to maximum for accurate results.</p>
+  <button (click)="showBrightnessConfirmation()">NEXT STEP</button>
+</div>
+
+<div id="brightness-confirmation" class="container" *ngIf="currentStep === 'brightness-confirmation'">
+  <h1>BE PREPARED</h1>
+  <p>Wear your glasses or contacts if you have them.</p>
+  <button (click)="showPreparationConfirmation()">NEXT STEP</button>
+</div>
+
+<div id="preparation-confirmation" class="container" *ngIf="currentStep === 'preparation-confirmation'">
+  <h1>EYES READY?</h1>
+  <p>Cover your left eye.</p>
+  <button (click)="startTest(1)">NEXT STEP</button>
+</div>
+
+<div id="test-area" class="container" *ngIf="currentStep === 'test-area'">
+  <h1>VISUAL ACUITY TEST</h1>
+  <p>
+      1) Cover your <span>{{ eyeInstruction }}</span> eye.<br>
+      2) Keep your device at arm's length.<br>
+      3) Identify the character shown.
+  </p>
+  <div id="letter" [style.fontSize.rem]="letterSize" [style.transform]="letterTransform">{{ currentLetter }}</div>
+  <div id="options" class="options-grid">
+      <div *ngFor="let char of allCharacters" class="option" (click)="checkAnswer(char)">{{ char }}</div>
+  </div>
+  <p id="result" [ngClass]="{ 'correct': resultIsCorrect }">{{ result }}</p>
+  <button id="next-test" *ngIf="showNextTest" (click)="nextTest()">NEXT TEST</button>
+  <button id="next-round" *ngIf="showNextRound" (click)="startTest(2)">NEXT ROUND (RIGHT EYE)</button>
+  <button id="color-test-button" *ngIf="showColorTestButton" (click)="startColorTest()">PROCEED TO COLOR VISION TEST</button>
+</div>
+
+<div id="color-test-area" class="container" *ngIf="currentStep === 'color-test-area'">
+  <h1>COLOR VISION TEST</h1>
+  <p>Look at the pattern below and enter the number you see.</p>
+  <canvas id="color-plate" width="300" height="300" #colorPlate></canvas>
+  <div class="input-container">
+      <input type="text" id="color-input" [(ngModel)]="colorInput" placeholder="Enter number" maxlength="2">
+      <button (click)="checkColorAnswer()">SUBMIT</button>
+  </div>
+  <p id="color-result" [ngClass]="{ 'correct': colorResultIsCorrect }">{{ colorResult }}</p>
+  <button id="next-color-test" *ngIf="showNextColorTest" (click)="nextColorTest()">NEXT COLOR TEST</button>
+  <button id="finish-test" *ngIf="showFinishTest" (click)="finishTest()">FINISH TEST</button>
+</div>
+
+<div id="result-area" class="container" *ngIf="currentStep === 'result-area'">
+  <h1>RESULTS</h1>
+  <div class="results-container" id="pdf-content">
+      <table>
+          <tr>
+              <th>Category</th>
+              <th>Details</th>
+          </tr>
+          <tr>
+              <td>Visual Acuity</td>
+              <td>{{ correctAnswers }} out of {{ testsPerEye * 2 }} correct ({{ ((correctAnswers / (testsPerEye * 2)) * 100).toFixed(0) }}%)</td>
+          </tr>
+          <tr>
+              <td>Assessment</td>
+              <td>
+                  {{ ((correctAnswers / (testsPerEye * 2)) * 100) >= 90 ? 'Your vision appears to be 20/20 or excellent based on this test.' :
+                      ((correctAnswers / (testsPerEye * 2)) * 100) >= 60 ? 'Your vision may be mildly impaired (e.g., 20/40). Consult an eye care professional.' :
+                      'Your vision may be significantly impaired. Please see an eye care professional soon.' }}
+              </td>
+          </tr>
+          <tr>
+              <td>Color Vision</td>
+              <td>
+                  {{ colorCorrectAnswers === colorTests.length ? 'You correctly identified all color patterns, suggesting normal color vision.' :
+                      `You correctly identified ${colorCorrectAnswers} out of ${colorTests.length} color patterns. This may indicate potential color blindness (e.g., red-green or blue-yellow deficiency). Consult an eye care professional for a detailed Ishihara test.` }}
+              </td>
+          </tr>
+      </table>
+      <button (click)="downloadPDF()">Download PDF</button>
+  </div>
+</div>

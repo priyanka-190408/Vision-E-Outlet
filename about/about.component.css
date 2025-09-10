@@ -1,0 +1,21 @@
+
+        .highlight {
+            background-color: yellow;
+            font-weight: bold;
+        }
+        .content p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .content h2 {
+            margin-bottom: 15px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+        }

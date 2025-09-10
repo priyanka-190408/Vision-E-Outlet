@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+<section class="register-form">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h3>Register Now</h3>
+
+    <div class="inputBox">
+      <span class="fas fa-user"></span>
+      <input type="text" formControlName="name" placeholder="Enter your name">
+    </div>
+    <div *ngIf="f['name'].invalid && (f['name'].dirty || f['name'].touched)" class="error">
+      <div *ngIf="f['name'].errors?.['required']">Name is required.</div>
+      <div *ngIf="f['name'].errors?.['minlength']">Name must be at least 4 characters long.</div>
+    </div>
+
+    <div class="inputBox">
+      <span class="fas fa-envelope"></span>
+      <input type="email" formControlName="email" placeholder="Enter your email">
+    </div>
+    <div *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)" class="error">
+      <div *ngIf="f['email'].errors?.['required']">Email is required.</div>
+      <div *ngIf="f['email'].errors?.['pattern']">Please enter a valid email address.</div>
+    </div>
+
+    <div class="inputBox">
+      <span class="fas fa-lock"></span>
+      <input type="password" formControlName="password" placeholder="Enter your password">
+    </div>
+    <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)" class="error">
+      <div *ngIf="f['password'].errors?.['required']">Password is required.</div>
+      <div *ngIf="f['password'].errors?.['pattern']">Password must be at least 8 characters long, contain one uppercase letter, and one special character.</div>
+    </div>
+
+    <div class="inputBox">
+      <span class="fas fa-lock"></span>
+      <input type="password" formControlName="confirmPassword" placeholder="Confirm your password">
+    </div>
+    <div *ngIf="f['confirmPassword'].invalid && (f['confirmPassword'].dirty || f['confirmPassword'].touched)" class="error">
+      <div *ngIf="f['confirmPassword'].errors?.['required']">Confirm Password is required.</div>
+    </div>
+    <div *ngIf="registerForm.errors?.['mismatch'] && (f['confirmPassword'].dirty || f['confirmPassword'].touched)" class="error">
+      Passwords do not match.
+    </div>
+
+    <input type="submit" value="Sign Up" class="btn" [disabled]="registerForm.invalid">
+    <a [routerLink]="['/login']" class="btn">Already have an account</a>
+    <p *ngIf="error" class="error">{{ error }}</p>
+    <p *ngIf="success" class="success">{{ success }}</p>
+  </form>
+</section>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+<section class="products">
+  <!-- Error Message -->
+  <p *ngIf="error" class="error-message">{{ error }}</p>
+  <!-- Success Message -->
+  <p *ngIf="cartMessage" class="success-message">{{ cartMessage }}</p>
+
+  <!-- Specs Section -->
+  <div class="category-section" *ngIf="(groupedProducts['specs'] || []).length > 0">
+    <h2>Specs</h2>
+    <div class="box-container">
+      <div class="box" *ngFor="let product of groupedProducts['specs']" [routerLink]="['/product', product._id]">
+        <div class="image">
+          <div class="icons">
+            <span class="fas fa-shopping-cart" (click)="addToCart(product, $event)"></span>
+            <span class="fas fa-share" (click)="copyProductUrl(product._id, $event)"></span>
+            <span class="fas fa-eye" (click)="viewProduct(product._id, $event)"></span>
+          </div>
+          <img [src]="product.imageUrl" alt="{{product.name}}">
+        </div>
+        <div class="content">
+          <h3>{{product.name}}</h3>
+          <div class="stars">
+            <i class="fas fa-star" *ngFor="let star of [1, 2, 3, 4]"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <div class="price">${{product.price}} <span>${{product.originalPrice}}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sunglasses Section -->
+  <div class="category-section" *ngIf="(groupedProducts['sunglasses'] || []).length > 0">
+    <h2>Sunglasses</h2>
+    <div class="box-container">
+      <div class="box" *ngFor="let product of groupedProducts['sunglasses']" [routerLink]="['/product', product._id]">
+        <div class="image">
+          <div class="icons">
+            <span class="fas fa-shopping-cart" (click)="addToCart(product, $event)"></span>
+            <span class="fas fa-share" (click)="copyProductUrl(product._id, $event)"></span>
+            <span class="fas fa-eye" (click)="viewProduct(product._id, $event)"></span>
+          </div>
+          <img [src]="product.imageUrl" alt="{{product.name}}">
+        </div>
+        <div class="content">
+          <h3>{{product.name}}</h3>
+          <div class="stars">
+            <i class="fas fa-star" *ngFor="let star of [1, 2, 3, 4]"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <div class="price">${{product.price}} <span>${{product.originalPrice}}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lenses Section -->
+  <div class="category-section" *ngIf="(groupedProducts['lenses'] || []).length > 0">
+    <h2>Lenses</h2>
+    <div class="box-container">
+      <div class="box" *ngFor="let product of groupedProducts['lenses']" [routerLink]="['/product', product._id]">
+        <div class="image">
+          <div class="icons">
+            <span class="fas fa-shopping-cart" (click)="addToCart(product, $event)"></span>
+            <span class="fas fa-share" (click)="copyProductUrl(product._id, $event)"></span>
+            <span class="fas fa-eye" (click)="viewProduct(product._id, $event)"></span>
+          </div>
+          <img [src]="product.imageUrl" alt="{{product.name}}">
+        </div>
+        <div class="content">
+          <h3>{{product.name}}</h3>
+          <div class="stars">
+            <i class="fas fa-star" *ngFor="let star of [1, 2, 3, 4]"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <div class="price">${{product.price}} <span>${{product.originalPrice}}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lens Solutions Section -->
+  <div class="category-section" *ngIf="(groupedProducts['lens-solutions'] || []).length > 0">
+    <h2>Lens Solutions</h2>
+    <div class="box-container">
+      <div class="box" *ngFor="let product of groupedProducts['lens-solutions']" [routerLink]="['/product', product._id]">
+        <div class="image">
+          <div class="icons">
+            <span class="fas fa-shopping-cart" (click)="addToCart(product, $event)"></span>
+            <span class="fas fa-share" (click)="copyProductUrl(product._id, $event)"></span>
+            <span class="fas fa-eye" (click)="viewProduct(product._id, $event)"></span>
+          </div>
+          <img [src]="product.imageUrl" alt="{{product.name}}">
+        </div>
+        <div class="content">
+          <h3>{{product.name}}</h3>
+          <div class="stars">
+            <i class="fas fa-star" *ngFor="let star of [1, 2, 3, 4]"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <div class="price">${{product.price}} <span>${{product.originalPrice}}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

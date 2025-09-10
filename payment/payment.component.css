@@ -1,0 +1,165 @@
+.payment {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #e6f0fa;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  color: #007bff;
+  font-size: 1.5em;
+  margin: 0;
+  font-weight: bold;
+}
+
+nav a {
+  color: #007bff;
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+h2 {
+  font-size: 2em;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.summary-container {
+  margin-bottom: 20px;
+}
+
+.item-section {
+  background: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.item-image {
+  width: 50px;
+  margin-right: 20px;
+}
+
+.item-details h3 {
+  margin: 0;
+  font-size: 1.5em;
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+.item-details p {
+  margin: 5px 0;
+  font-size: 1.3em;
+  color: #34495e;
+  font-weight: bold;
+}
+
+.total-section {
+  text-align: center;
+  font-size: 1.5em;
+  margin: 20px 0;
+}
+
+.total-section h2 {
+  color: #333;
+  margin: 0;
+  font-weight: bold;
+}
+
+.payment-options {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.payment-options h3 {
+  margin-top: 0;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.payment-options div {
+  margin: 15px 0;
+}
+
+.payment-options label {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.payment-details {
+  background: #f1f5f9;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.upi-inputs, .card-inputs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.upi-inputs input, .card-inputs input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.upi-inputs p {
+  margin: 10px 0;
+  font-size: 1.3em;
+  color: #34495e;
+  font-weight: bold;
+}
+
+.card-inputs {
+  grid-template-columns: 2fr 1fr 1fr;
+}
+
+.confirm-payment {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: #95a5a6;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1.3em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.confirm-payment:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.confirm-payment:hover:not(:disabled),
+.confirm-payment:active:not(:disabled) {
+  background: #ff69b4;
+}

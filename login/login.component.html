@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+<section class="login-form">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h3>Login Now</h3>
+
+    <div class="inputBox">
+      <span class="fas fa-envelope"></span>
+      <input type="email" formControlName="email" placeholder="Enter your email">
+    </div>
+    <div *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)" class="error">
+      <div *ngIf="f['email'].errors?.['required']">Email is required.</div>
+      <div *ngIf="f['email'].errors?.['pattern']">Please enter a valid email address.</div>
+    </div>
+
+    <div class="inputBox">
+      <span class="fas fa-lock"></span>
+      <input type="password" formControlName="password" placeholder="Enter your password">
+    </div>
+    <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)" class="error">
+      <div *ngIf="f['password'].errors?.['required']">Password is required.</div>
+      <div *ngIf="f['password'].errors?.['pattern']">Password must be at least 8 characters long, contain one uppercase letter, and one special character.</div>
+    </div>
+
+    <div class="checkbox">
+      <input type="checkbox" formControlName="rememberMe" id="remember-me">
+      <label for="remember-me" style="font-weight: bold;">Remember Me</label>
+    </div>
+
+    <input type="submit" value="Login" class="btn" [disabled]="loginForm.invalid">
+    <a [routerLink]="['/register']" class="btn">Don't have an account?</a>
+    <p *ngIf="error" class="error">{{ error }}</p>
+    <p *ngIf="message" class="success">{{ message }}</p>
+  </form>
+</section>
+</body>
+</html>
